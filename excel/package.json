@@ -1,5 +1,5 @@
 {
-  "name": "excel", 
+  "name": "excel",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,9 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "next": "13.4.9",
+    "pdfmake": "github:bpampuch/pdfmake",
     "postcss": "8.4.25",
     "react": "18.2.0",
     "react-dom": "18.2.0",
