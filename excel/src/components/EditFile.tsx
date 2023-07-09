@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {GetData,UpdateDatabase}from'./db'
 
 interface Props {
   FIRSTNAME: string;
@@ -9,6 +10,9 @@ interface Props {
   COMMENT: string;
   isActive: Boolean;
   setIsActive: any;
+  items: any;
+  seItems: any;
+  index: number;
 }
 export default function EditFile({
   FIRSTNAME,
@@ -19,6 +23,9 @@ export default function EditFile({
   COMMENT,
   isActive,
   setIsActive,
+  items,
+  seItems,
+  index,
 }: Props) {
   const [FirstName, setFirstName] = useState(FIRSTNAME);
   const [LastName, setLastName] = useState(LASTNAME);
@@ -29,7 +36,7 @@ export default function EditFile({
 
   return (
     <div
-      className={`fixed z-20 bg-white dark:bg-gray-900  h-screen w-1/3 top-0  container ${
+      className={`fixed z-20 bg-[#ffffffd4] mr-2 dark:bg-gray-900 shadow-lg rounded-lg h-auto mt-12 w-1/3 top-0  container ${
         isActive ? "right-0" : "-right-1/3"
       }`}
     >
@@ -40,7 +47,7 @@ export default function EditFile({
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-6 h-6 absolute right-6 cursor-pointer top-2"
-        onClick={() => setIsActive(false)}
+        onClick={() => setIsActive(false) }
       >
         <path
           strokeLinecap="round"
@@ -52,8 +59,24 @@ export default function EditFile({
       <form
         className="w-full h-full p-6 mt-6"
         onSubmit={(e) => {
-          console.log("dfadsf")
-          e.preventDefault()
+          e.preventDefault();
+          setIsActive(false);
+          console.log(index);
+
+          let EditedItems = items;
+
+          EditedItems[index].FIRSTNAME = FirstName;
+          EditedItems[index].LASTNAME = LastName;
+          EditedItems[index].PHONE = Phone;
+          EditedItems[index].PASSWORD = Password;
+          EditedItems[index].COMMENT = Comment;
+          EditedItems[index].USERNAME = UserName;
+
+          seItems(EditedItems);
+
+          UpdateDatabase(items)
+
+          console.log(EditedItems);
         }}
       >
         <div className="mb-6">
@@ -160,12 +183,27 @@ export default function EditFile({
           />
         </div>
 
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
+        <div className="w-full flex items-center justify-around">
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Update
+          </button>
+
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => {
+              var UnDeletedItems: any = items.filter(
+                (item: any) =>
+                  item.USERNAME !== UserName && item.PASSWORD !== Password
+              );
+              console.log(UnDeletedItems);
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   );
