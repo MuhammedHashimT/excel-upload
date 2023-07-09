@@ -19,31 +19,37 @@ const downloadExcel = (data: any) => {
   XLSX.writeFile(workbook, "DataSheet.xlsx");
 };
 
+
 export default function Home() {
 
   
   const [items, setItems] = useState([]);
-
+  const [isNew, setIsNew] = useState(null);
+  
   useEffect( () => {
     
     const userId = localStorage.getItem("userId");
     
-
+    console.log(userId);
+    
+    
     if(userId) {
-     const info : any = GetData(userId).then((data : any) => {
-
+      const info : any = GetData(userId).then((data : any) => {
+        
        console.log(data);
        setItems(data);
-     });
+      });
 
-     
+     const LocalValue: any = localStorage.getItem("IsNew")
 
+     setIsNew(LocalValue)
     //  setItems(info)
     
     }
-
+    
   }, []);
-
+  
+  
   const [isActive, setIsActive] = useState(false);
   const [alert, setAlert]: any = useState(null);
   const [selectedItem, setSelectedItem] = useState({
@@ -55,8 +61,6 @@ export default function Home() {
     COMMENT: "",
     index: 0,
   });
-  const [isNew, setIsNew] = useState(window.localStorage.getItem("IsNew") == "true");
-  
   
 
   console.log("isNew" + isNew);
@@ -153,7 +157,7 @@ export default function Home() {
           Download demo excel file
           </div>
         </a>
-        <div className="flex items-center justify-center w-1/2">
+        <div className="flex items-center justify-center md:w-1/2 w-full">
           <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <svg
@@ -176,7 +180,7 @@ export default function Home() {
                 and drop
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                XLS, XLXS files only (MAX. 800x400px)
+                XLS, XLXS , CSV files only (MAX. 800x400px)
               </p>
             </div>
             <input

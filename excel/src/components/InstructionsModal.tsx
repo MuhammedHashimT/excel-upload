@@ -46,7 +46,7 @@ export default function InstructionsModal() {
                   <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                     This app is for Edit your Excel project of a specific model
                     of an application. the file must include the following
-                    columns: <span className="text-gray-700 font-bold">FIRSTNAME, LASTNAME, USERNAME, PASSWORD, PHONE,
+                    columns: <span className="text-gray-700  dark:text-gray-300 font-bold">FIRSTNAME, LASTNAME, USERNAME, PASSWORD, PHONE,
                     COMMENT
                     </span> 
                   </p>
