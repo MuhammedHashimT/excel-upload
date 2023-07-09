@@ -58,7 +58,7 @@ export default function EditFile({
 
       <form
         className="w-full h-full p-6 mt-6"
-        onSubmit={(e) => {
+        onSubmit={async(e) => {
           e.preventDefault();
           setIsActive(false);
           console.log(index);
@@ -74,7 +74,9 @@ export default function EditFile({
 
           seItems(EditedItems);
 
-          UpdateDatabase(items)
+          const userId = await UpdateDatabase(items)
+
+          localStorage.setItem("userId", userId);
 
           console.log(EditedItems);
         }}
@@ -90,7 +92,7 @@ export default function EditFile({
             type="text"
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="john"
+            placeholder="John"
             required
             value={FirstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -124,7 +126,7 @@ export default function EditFile({
             type="text"
             id="confirm_password"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="+1 45487 4878"
+            placeholder="+1 1234 567 890"
             required
             value={Phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -142,7 +144,7 @@ export default function EditFile({
             type="text"
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="@any"
+            placeholder="@username"
             required
             value={UserName}
             onChange={(e) => setUserName(e.target.value)}

@@ -27,11 +27,15 @@ export default function Home() {
   useEffect( () => {
     
     const userId = localStorage.getItem("userId");
+    
 
     if(userId) {
-     const info : any = GetData(userId)
+     const info : any = GetData(userId).then((data : any) => {
 
-     console.log(info);
+       console.log(data);
+       setItems(data);
+     });
+
      
 
     //  setItems(info)
@@ -53,29 +57,7 @@ export default function Home() {
   });
   const [isNew, setIsNew] = useState(window.localStorage.getItem("IsNew") == "true");
   
-  // const gridRef = useRef();
-  // const containerStyle = useMemo(() => ({ width: '100%', height: '100%' }), []);
-  // const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), []);
-  // const [columnDefs, setColumnDefs] = useState([
-  //   { field: 'make' },
-  //   { field: 'model' },
-  //   { field: 'price', filter: 'agNumberColumnFilter' },
-  // ]);
-
-  // const defaultColDef = useMemo(() => {
-  //   return {
-  //     flex: 1,
-  //     editable: true,
-  //     sortable: true,
-  //     filter: true,
-  //   };
-  // }, []);
-
-  // const getRowId = useMemo(() => {
-  //   return (params : any) => {
-  //     return params.data.id;
-  //   };
-  // }, []);
+  
 
   console.log("isNew" + isNew);
 
@@ -288,7 +270,7 @@ export default function Home() {
 
         {items.length != 0 ? (
           <a
-            className="mt-3 flex flex-rowp-1 mb-2 p-2 bg-slate-400 text-white rounded-md"
+            className="mt-3 flex flex-rowp-1 mb-2 p-2 bg-slate-400 text-white rounded-md cursor-pointer"
             onClick={() => downloadExcel(items)}
           >
             <svg
@@ -308,8 +290,6 @@ export default function Home() {
             Download Customized File
           </a>
         ) : null}
-
-        {/* jsajfkal */}
         
 
         {/* Instructions */}

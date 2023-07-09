@@ -18,14 +18,15 @@ const app = firebase.initializeApp(firebaseConfig);
 
 const db = firebasedb.getDatabase(app);
 
- function GetData(unix_time) {
-  var unix_time =
-    "/" + unix_time + (Math.floor(Math.random() * 10) + 1).toString();
+ async function GetData(time_id) {
+  var time_id =
+    "/" + time_id;
+  console.log(time_id);
 
   var datas;
 
-  firebasedb
-    .get(firebasedb.ref(db), unix_time)
+  await firebasedb
+    .get(firebasedb.child(firebasedb.ref(db), time_id))
     .then((snapshot) => {
       if (snapshot.exists()) {
         datas = snapshot.val();

@@ -19,7 +19,7 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="/favicons/favicon-16.png" type="image/x-icon" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className='transition-all'>{children}</body>
     </html>
   )
 }
